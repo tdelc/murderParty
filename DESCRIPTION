@@ -24,3 +24,5 @@ Imports:
     shiny,
     TheOpenAIR,
     tidyr
+URL: https://github.com/tdelc/murderParty
+BugReports: https://github.com/tdelc/murderParty/issues
