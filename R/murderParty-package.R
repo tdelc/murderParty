@@ -1,0 +1,28 @@
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+#' @importFrom dplyr add_row
+#' @importFrom dplyr arrange
+#' @importFrom dplyr case_when
+#' @importFrom dplyr filter
+#' @importFrom dplyr group_by
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr n
+#' @importFrom dplyr pull
+#' @importFrom dplyr row_number
+#' @importFrom dplyr select
+#' @importFrom dplyr summarise
+#' @importFrom dplyr tibble
+#' @importFrom dplyr ungroup
+#' @importFrom magrittr %>%
+#' @importFrom shiny h3
+#' @importFrom shiny modalButton
+#' @importFrom shiny modalDialog
+#' @importFrom shiny showModal
+#' @importFrom shiny span
+#' @importFrom shiny tagList
+#' @importFrom tidyr pivot_wider
+## usethis namespace: end
+NULL
