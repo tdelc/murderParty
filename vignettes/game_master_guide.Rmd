@@ -1,0 +1,163 @@
+---
+title: "Game Master's Guide for murderParty"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Game Master's Guide for murderParty}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+# Ensure functions are available for examples, assuming package is loaded.
+# If running vignette in an environment where murderParty is not fully installed and loaded,
+# you might need devtools::load_all(".") or similar in an R session before building vignettes.
+# For vignette building via R CMD build, it should be available.
+```
+
+## Introduction
+
+Welcome to the `murderParty` R package! This package provides a framework for setting up and managing interactive murder mystery games. It includes tools for game state management, player actions (like searching for clues or interacting with other players), and a Shiny-based web interface for both players and the Game Master (GM).
+
+This guide focuses on helping you, the Game Master, set up and run a game session, using the "Habemus Papam" scenario as the primary example.
+
+## Installation
+
+To use the `murderParty` package, you'll first need to install it. If you have the package source locally, you can install it using `devtools`.
+
+First, ensure you have `devtools` installed:
+```{r install_devtools_eval_false, eval=FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+```
+
+Then, you can install `murderParty`. If it were hosted on GitHub, the command would be:
+```{r install_github_eval_false, eval=FALSE}
+# Replace 'tdelc/murderParty' with the actual repository URL if it's on GitHub
+devtools::install_github("tdelc/murderParty")
+```
+
+If you are working with the package source code directly (e.g., in RStudio), you can load it using `devtools::load_all()`:
+```{r load_all_eval_false, eval=FALSE}
+# Run this in your R console if you are in the package's root directory
+devtools::load_all()
+```
+
+Once installed or loaded, you can make its functions available in your R session:
+```{r library_murderParty, message=FALSE, warning=FALSE}
+library(murderParty)
+```
+
+## Game Setup (for "Habemus Papam")
+
+The `murderParty` package uses a CSV file to store all game actions and maintain the state of your game session. Each game session should have its own unique CSV file.
+
+### Creating the Game Data File
+
+To start a new game for the "Habemus Papam" scenario, you use the `creer_serveur_habemus()` function. This function initializes the game data file with the necessary setup for this specific scenario.
+
+1.  **Choose a file path:** Decide on a name and location for your game data file. It's best to use a `.csv` extension.
+    ```{r define_game_file}
+    # Choose a unique path for your game session data file
+    # This creates the file in your current R working directory.
+    # You might want to specify a full path, e.g., "/path/to/your/games/habemus_session_1.csv"
+    my_game_file <- "habemus_session_1.csv"
+    ```
+
+2.  **Create the game file:**
+    The `creer_serveur_habemus()` function takes the `game_data_path` as its primary argument. For the default "Habemus Papam" setup using the package's built-in scenario data (like player roles, initial clues, etc.), you typically don't need to pass additional complex data structures.
+    
+    The underlying function `creation_server_habemus()` uses default data frames:
+    *   `murderParty::init_habemus`: For initial game parameters, player roles, passwords, initial PAs.
+    *   `murderParty::init_habemus_indices`: For the texts and details of all clues.
+    *   `murderParty::init_habemus_indices_dispo`: For clues available at the start.
+
+    If you need to customize the scenario (e.g., change player names, passwords, or initial PAs), you would prepare a custom data frame (matching the structure of `murderParty::init_habemus`) and pass it via the `df_init_habemus` argument to `creer_serveur_habemus`.
+
+    For a standard game:
+    ```{r create_server_standard, eval=TRUE}
+    # Create the initial game data file using default settings for "Habemus Papam"
+    creer_serveur_habemus(game_data_path = my_game_file)
+
+    print(paste("Game file created:", my_game_file))
+    # You should now see this CSV file in your working directory (or specified path).
+    ```
+
+    If you wanted to customize, for example, the initial player setup:
+    ```{r create_server_custom_conceptual, eval=FALSE}
+    # Conceptual example of passing custom initial data
+    # You would need to create this data frame with the correct structure.
+    # See the documentation for `?init_habemus` for the expected format.
+    custom_initial_settings <- data.frame(
+      user = c("admin", "admin", "Alice", "Bob"), # etc.
+      action = c("password", "password", "password", "password"),
+      cible = c("Alice", "Bob", "Alice", "Bob"), # For admin, cible is user; for users, can be self or empty
+      PA = c(0, 0, 10, 10), # Initial PA for Alice and Bob
+      resultat = c("passAlice", "passBob", "", ""), # Passwords for Alice and Bob
+      timer = Sys.time(),
+      timer_ok = Sys.time(),
+      texte = ""
+      # Ensure all necessary columns from init_habemus structure are present
+    )
+    
+    # Then create the server with this custom data
+    # creer_serveur_habemus(game_data_path = "custom_habemus_game.csv",
+    #                       df_init_habemus = custom_initial_settings)
+    ```
+    For most GMs running "Habemus Papam" for the first time, the default settings are recommended.
+
+## Launching the Game Application
+
+Once your game data file (`.csv`) is created, you can launch the Shiny web application. This interface allows players to interact with the game and for you, the GM, to manage it.
+
+Use the `lancer_serveur_habemus()` function:
+```{r launch_server, eval=FALSE}
+# Ensure the 'my_game_file' variable holds the path to your created CSV file.
+# If you are in a new R session or have cleared variables, redefine it:
+# my_game_file <- "habemus_session_1.csv" # Or the full path you used
+
+if (file.exists(my_game_file)) {
+  lancer_serveur_habemus(game_data_path = my_game_file)
+} else {
+  stop(paste("Game file not found:", my_game_file, 
+             "- Please ensure it was created successfully in the correct directory."))
+}
+```
+
+This command will start the Shiny application, which should open in your default web browser. Players will connect to this application (details on how they connect, e.g., via IP address if on the same network, depend on your R/Shiny setup and are beyond this guide).
+
+## Overview of the Admin Panel
+
+The Shiny application has different views:
+*   **Player View:** This is what players use to log in, perform actions like investigating clues, sending messages, etc.
+*   **Admin View:** This is for you, the Game Master.
+
+To access the Admin Panel:
+1.  When the Shiny app launches, you'll see a login screen.
+2.  Log in using the admin credentials. By default for "Habemus Papam", the admin username is often "admin" or "MJ" (Master of the Game). The default password should be checked in the scenario's documentation or the `init_habemus` data (often, the admin user might have a known default or be the first user set up without a password login, directly accessing the admin panel if specific query parameters are used like `?admin=true` in some setups, though this package uses a standard login).
+    *For this package, the admin credentials are set within the `df_init_habemus` data passed to `creer_serveur_habemus`. The default `murderParty::init_habemus` data would contain these.*
+
+Once logged in as admin, you will have access to several tabs and functionalities, including:
+*   **Monitoring Player Actions:** See a log of all actions taken by players.
+*   **Managing Player Information:**
+    *   View and modify player passwords.
+    *   Adjust Player Action Points (PA).
+    *   View and modify player rankings (if applicable to the scenario).
+*   **Clue Management:**
+    *   See the status of various clues (who has which parts).
+    *   Manually grant clues to players if needed.
+    *   Modify clue texts or details (usually done before the game starts).
+*   **Game Settings:**
+    *   Adjust probabilities for dice rolls related to clue investigations.
+    *   Activate or deactivate special game phases or features (e.g., "special clues" or ChatGPT integration if enabled).
+*   **Timers:** Manage game timers or PA regeneration events.
+
+We encourage you to thoroughly explore all tabs and options within the Admin Panel to become familiar with its capabilities.
+
+---
+
+You should now have the `murderParty` application running with your "Habemus Papam" session. Proceed to the application and explore the Admin Panel to manage your game!

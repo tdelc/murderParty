@@ -1,6 +1,6 @@
 Package: murderParty
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Framework for Managing Interactive Murder Mystery Parties
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -9,8 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Provides a framework for running interactive murder mystery games. It includes functions for managing game state, player actions (such as searching for clues, interacting with objects or characters), and a Shiny-based web interface for players and game masters. Initially designed for the 'Habemus Papam' scenario, with potential for extension to other stories.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
@@ -19,10 +18,21 @@ Depends:
 RoxygenNote: 7.3.2
 Imports: 
     dplyr,
+    DT,
     ggplot2,
     magrittr,
+    readr,
     shiny,
-    TheOpenAIR,
-    tidyr
+    shinydashboard,
+    shinydashboardPlus,
+    stringr,
+    tibble,
+    tidyr,
+    utils
+Suggests:
+    testthat (>= 3.0.0),
+    knitr
+Config/testthat/edition: 3
+VignetteBuilder: knitr
 URL: https://github.com/tdelc/murderParty
 BugReports: https://github.com/tdelc/murderParty/issues
