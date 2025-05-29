@@ -1,16 +1,17 @@
 Package: murderParty
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Interface interactive pour une Murder Party
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Thomas", "Delclite",
+      email = "t.delclite@gmail.com",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Le package murderParty propose une suite de fonctions et 
+    d’interfaces permettant de gérer informatiquement une murder party 
+    scénarisée, ici dans le cadre du scénario "Habemu Papam" ou "Dieu est mort".
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
