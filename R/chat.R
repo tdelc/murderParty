@@ -1,16 +1,16 @@
 #' Envoyer un message à un ou des PJ
 #'
-#' @param actions
-#' @param origine
-#' @param destinataire
-#' @param message
-#' @param PA
-#' @param delai
+#' @description
+#' `envoi_message()` permet d'envoyer un message à un (ou d'autres) PJ.
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param origine origine du message
+#' @param destinataire destinataire du message
+#' @param message message à envoyer
+#' @param PA nombre de PA dépensé
+#' @param délai détermine le temps pour envoyer le message
 #'
-#' @examples
+#' @returns liste avec les nouvelles lignes et le message à afficher
 envoi_message <- function(actions,origine,destinataire,message,PA,delai){
 
   timer_now <- Sys.time()

@@ -1,21 +1,25 @@
-# Fonction de recherche indices
-#' Title
+#' Rechercher un indice
 #'
-#' @param actions
-#' @param user_name
-#' @param enquete
-#' @param PA
-#' @param resultat
-#' @param duree
+#' @description
+#' `recherche_indice()` permet de faire une recherche d'indices parmi les indices dispo.
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ a l'origine de la recherche
+#' @param enquete nom de l'enquête
+#' @param PA nombre de PA dépensé
+#' @param resultat (pour admin) détermine manuellement le résultat
+#' @param duree (pour admin) détermine manuellement la durée de la recherche
+#' @param id_chatgpt (facultatif) credential de chatGPT
 #'
-#' @examples
+#' @returns liste avec les nouvelles lignes et le message à afficher
 recherche_indice <- function(actions,user_name,
                              enquete,PA,resultat=NA,duree=NA,
                              id_chatgpt=NULL){
   n_new <- 0
+  print(actions)
+  print(user_name)
+  print(enquete)
+  print(PA)
 
   if (is.na(duree)){
     # Durée aléatoire de recherche
@@ -109,19 +113,17 @@ recherche_indice <- function(actions,user_name,
   list(new_rows=new_rows,message=message_output)
 }
 
-#' Copier l'indice d'une précédente enquête
+#' Copier l'indice d'un autre PJ
 #'
-#' @param actions
-#' @param user_name
-#' @param cible_name
-#' @param PA
-#' @param variation
-#' @param duree
+#' @description
+#' `copie_indice()` permet de faire une copie d'une enquête réalisée par un autre PJ.
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ a l'origine de la copie
+#' @param cible_name PJ ciblé par la copie
+#' @param PA nombre de PA dépensé
 #'
-#' @examples
+#' @returns liste avec les nouvelles lignes et le message à afficher
 copie_indice <- function(actions,user_name,cible_name,PA){
 
   timer_now <- Sys.time()
@@ -153,17 +155,17 @@ copie_indice <- function(actions,user_name,cible_name,PA){
   list(new_rows = new_rows,message=message_output)
 }
 
-#' Intercepter un futur indice d'un PJ
+#' Intercepter l'enquête future d'un autre PJ
 #'
-#' @param actions
-#' @param user_name
-#' @param cible_name
-#' @param PA
+#' @description
+#' `interception_indice()` permet de préparer une interception d'une prochaine recherche d'indice d'un autre PJ.
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ a l'origine de l'interception
+#' @param cible_name PJ ciblé par l'interception
+#' @param PA nombre de PA dépensé
 #'
-#' @examples
+#' @returns liste avec les nouvelles lignes et le message à afficher
 interception_indice <- function(actions,user_name,cible_name,PA){
   timer_now <- Sys.time()
 
@@ -189,13 +191,13 @@ interception_indice <- function(actions,user_name,cible_name,PA){
 
 #' Lister les indices actuels d'un PJ
 #'
-#' @param actions
-#' @param user_name
+#' @description
+#' `liste_indices()` liste les indices actuels d'un PJ
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ dont on veut la liste des indices actuels
 #'
-#' @examples
+#' @returns liste avec les indices
 liste_indices <- function(actions,user_name){
 
   # Liste des indices

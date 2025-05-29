@@ -47,21 +47,6 @@ tabItem_connexion <- tabItem(tabName = "connexion",
                                      actionButton("boutton_log", "Go!")
                                  )
                                )
-                             ),
-                             conditionalPanel(
-                               condition = "output.logged == 'not_connected'",
-                               fluidRow(
-                                 box(width = 6, title = "Interface informatique pour Habemus Papam",
-                                     status = "primary", solidHeader = TRUE,
-                                     p("Bienvenue dans l'interface informatique permettant de gérer les indices durant la murder party Habemu Papam"),
-                                     p("Comme vous avez pu le lire dans les règles de jeu, les personnages ont la possibilité d’obtenir des indices via des enquêtes. Vous pouvez gérer ces actions vous mêmes (auquel cas vous devez imprimer les indices en plusieurs exemplaires ainsi que des points d’indices, et réaliser les actions) mais cela prend beaucoup de temps (nous vous conseillons dans ce cas d’être deux)."),
-                                     p("Vous pouvez également vous munir d’ordinateurs gérant cette tâche à votre place. Deux ou trois ordinateurs sont nécessaires dans ce cas, répartis sur l’ensemble de l’espace de jeu. Vous n’avez rien à installer pour les ordinateurs devant gérer les indices, toutes les actions sont réalisées avec cette interface web."),
-                                     p("En vous rendant sur l'url https://tdelc.shinyapps.io/habemus_new/?new_server , Vous allez pouvoir créer le serveur qui servira à stocker les actions des joueurs durant le jeu. Choisissez un nom sans espace ni caractères spéciaux. Vous cliquez ensuite sur “Créer Serveur” et l’interface vous indiquera si le serveur a été créé, ou si vous avez choisi un nom qui existe déjà."),
-                                     p("Une fois le serveur créé, vous pouvez lancer cette url sur tous les ordinateurs de la session : https://tdelc.shinyapps.io/habemus_new/?server=XXX en remplaçant le terme XXX par le nom que vous aurez choisi pour votre serveur."),
-                                     p("Cette url donne accès aux joueurs à une interface complète permettant d’envoyer des enquêteurs sur les indices disponibles dans leur feuille de personnage (et d’ajouter des points de pouvoir pour améliorer leur chance de réussite parfaite), de copier ou d’intercepter des enquêtes réalisées par les autres ou de s’envoyer des messages entre eux ou elles. Toutes ces actions sont expliquées directement dans l’interface. Pensez quand même à faire un tutoriel aux joueur.euse.s avant le début du jeu et/ou à les accompagner lors de leur première action.")
-
-                                 )
-                               )
                              )
 )
 

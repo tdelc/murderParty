@@ -7,7 +7,12 @@
 show_message(title, message)
 }
 \arguments{
-\item{message}{}
+\item{title}{titre du message}
+
+\item{message}{texte du message}
+}
+\value{
+modalBox
 }
 \description{
 Afficher un message dans l'interface

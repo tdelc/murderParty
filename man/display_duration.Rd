@@ -2,13 +2,19 @@
 % Please edit documentation in R/fonctions.R
 \name{display_duration}
 \alias{display_duration}
-\title{Fonction pour afficher la durée de manière pertinente}
+\title{Afficher la durée de manière propre}
 \usage{
 display_duration(diff_seconds)
 }
 \arguments{
-\item{diff_seconds}{}
+\item{diff_seconds}{durée en secondes}
+}
+\value{
+texte avec la durée
 }
 \description{
-Fonction pour afficher la durée de manière pertinente
+Afficher la durée de manière propre
+}
+\examples{
+display_duration(1234)
 }

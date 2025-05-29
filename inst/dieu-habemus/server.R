@@ -4,6 +4,7 @@ library(DT)
 library(tidyverse)
 
 server_name <- getOption("habemus.server_name", default = NULL)
+id_chatgpt <- getOption("habemus.id_chatgpt", default = NULL)
 actions <- getOption("habemus.actions", default = NULL)
 if (is.null(actions) | is.null(server_name)) {
   stop("Aucun nom de serveur ou server_name défini.
@@ -19,10 +20,10 @@ shinyServer(function(input, output,session) {
 
   USER <- reactiveValues(logged = FALSE)
   values <- reactiveValues(enquete_speciale="Non",classement="non",
-                           actions=actions,start=TRUE)
+                           actions=actions,start=TRUE,id_chatgpt=id_chatgpt)
 
   observeEvent(values$actions,{
-    write.csv2(values$actions,server_name)
+    write_csv(values$actions,server_name)
   })
 
   # Message d'informations
@@ -216,7 +217,9 @@ shinyServer(function(input, output,session) {
         }else if (USER$PA_user < input$PA){
           message_output <- message_PA_insuffisant
         }else{
-          out <- recherche_indice(values$actions,USER$nom_user,input$choix_enquete,input$PA)
+          out <- recherche_indice(values$actions,USER$nom_user,
+                                  input$choix_enquete,input$PA,
+                                  NA,NA,values$id_chatgpt)
           values$actions <- values$actions %>% add_row(out$new_rows)
           show_message("Actions",out$message)
 
@@ -245,7 +248,6 @@ shinyServer(function(input, output,session) {
     updateControlbar(id = "controlbar", session = session)
     updateControlbarMenu("controlbarMenu", selected = "Interception")
   })
-
 
   #### Module de recherche d'indices avancés ####
 
@@ -300,11 +302,13 @@ shinyServer(function(input, output,session) {
       recup <- pull(indices_basiques[c(recup1,recup2,recup3,recup1b,recup2b,recup3b),'indice'])
 
       if (length(recup)>0){
-        out <- recherche_indice(values$actions,USER$nom_user,sample(recup,1),input$PA)
+        out <- recherche_indice(values$actions,USER$nom_user,sample(recup,1),
+                                input$PA,NA,NA,values$id_chatgpt)
       }else{
         # Résultat aléatoire
         enquete_alea <- sample(pull(indices_basiques[,'indice']),1)
-        out <- recherche_indice(values$actions,USER$nom_user,enquete_alea,input$PA,1)
+        out <- recherche_indice(values$actions,USER$nom_user,enquete_alea,
+                                input$PA,1,NA,values$id_chatgpt)
       }
       values$actions <- values$actions %>% add_row(out$new_rows)
       show_message("Actions",out$message)
@@ -802,7 +806,8 @@ shinyServer(function(input, output,session) {
       out <- recherche_indice(values$actions,
                               input$choix_user_indice,
                               input$choix_enquete_admin,
-                              0,input$choix_variation,0)
+                              0,input$choix_variation,0,
+                              values$id_chatgpt)
       values$actions <- values$actions %>% add_row(out$new_rows)
 
       info_admin(paste0(input$choix_enquete_admin," attribué à ",

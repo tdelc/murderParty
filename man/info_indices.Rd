@@ -4,10 +4,13 @@
 \alias{info_indices}
 \title{Charger les indices}
 \usage{
-info_indices(df)
+info_indices(actions)
 }
 \arguments{
-\item{df}{}
+\item{actions}{objet réactif contenant la base de données du serveur}
+}
+\value{
+data.frame avec les indices disponibles
 }
 \description{
 Charger les indices

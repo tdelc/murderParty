@@ -7,8 +7,14 @@
 prepare_timer(timer)
 }
 \arguments{
-\item{timer}{}
+\item{timer}{timer à modifier}
+}
+\value{
+timer en meilleur format
 }
 \description{
 Préparer les timers
+}
+\examples{
+prepare_timer(now())
 }

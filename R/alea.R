@@ -1,12 +1,12 @@
-#' Fonction de création BDD dés
+#' Fonction de création du dé d'action
 #'
-#' @param actions
-#' @param bonus_recherche
+#' @description
+#' `creation_bdd_des()` permet de choisir le dé pour les aléas des actions.
 #'
-#' @returns
-#' @export
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param bonus_recherche crée le bonus de recherche automatique
 #'
-#' @examples
+#' @returns data.frame avec les valeurs du dé
 creation_bdd_des <- function(actions,bonus_recherche=0){
 
   # Extraire la liste des résultats
@@ -34,12 +34,12 @@ creation_bdd_des <- function(actions,bonus_recherche=0){
 
 #' Fonction de graphique pour le dé
 #'
-#' @param valeur_alea
+#' @description
+#' `plot_bdd_des()` permet de représenter graphiquement les résultats possible du dé.
 #'
-#' @returns
-#' @export
+#' @param valeur_alea data.frame provenant de creation_bdd_des()
 #'
-#' @examples
+#' @returns ggplot
 plot_bdd_des <- function(valeur_alea){
   ggplot2::ggplot(valeur_alea) +
     ggplot2::aes(x = pc, y = reorder(label, pc), fill = label) +

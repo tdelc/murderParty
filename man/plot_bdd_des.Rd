@@ -7,8 +7,11 @@
 plot_bdd_des(valeur_alea)
 }
 \arguments{
-\item{valeur_alea}{}
+\item{valeur_alea}{data.frame provenant de creation_bdd_des()}
+}
+\value{
+ggplot
 }
 \description{
-Fonction de graphique pour le dé
+`plot_bdd_des()` permet de représenter graphiquement les résultats possible du dé.
 }

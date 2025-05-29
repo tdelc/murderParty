@@ -2,13 +2,18 @@
 % Please edit documentation in R/alea.R
 \name{creation_bdd_des}
 \alias{creation_bdd_des}
-\title{Fonction de création BDD dés}
+\title{Fonction de création du dé d'action}
 \usage{
-creation_bdd_des(df, bonus_recherche = 0)
+creation_bdd_des(actions, bonus_recherche = 0)
 }
 \arguments{
-\item{bonus_recherche}{}
+\item{actions}{objet réactif contenant la base de données du serveur}
+
+\item{bonus_recherche}{crée le bonus de recherche automatique}
+}
+\value{
+data.frame avec les valeurs du dé
 }
 \description{
-Fonction de création BDD dés
+`creation_bdd_des()` permet de choisir le dé pour les aléas des actions.
 }

@@ -4,10 +4,13 @@
 \alias{info_user}
 \title{Charger les user/password}
 \usage{
-info_user(df)
+info_user(actions)
 }
 \arguments{
-\item{df}{}
+\item{actions}{objet réactif contenant la base de données du serveur}
+}
+\value{
+data.frame avec les users et passwords
 }
 \description{
 Charger les user/password

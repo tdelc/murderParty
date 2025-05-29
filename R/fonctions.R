@@ -1,12 +1,9 @@
 #' Afficher un message dans l'interface
 #'
-#' @param title
-#' @param message
+#' @param title titre du message
+#' @param message texte du message
 #'
-#' @returns
-#' @export
-#'
-#' @examples
+#' @returns modalBox
 show_message <- function(title, message) {
   showModal(modalDialog(
     h3(title),
@@ -17,14 +14,11 @@ show_message <- function(title, message) {
 
 #' Charger les indices
 #'
-#' @param df
+#' @param actions objet réactif contenant la base de données du serveur
 #'
-#' @returns
-#' @export
-#'
-#' @examples
-info_indices <- function(df){
-  df %>%
+#' @returns data.frame avec les indices disponibles
+info_indices <- function(actions){
+  actions %>%
     filter(user == "admin" & action ==  "init") %>%
     group_by(cible,PA,resultat) %>%
     filter(row_number() == n()) %>%
@@ -35,14 +29,11 @@ info_indices <- function(df){
 
 #' Charger les user/password
 #'
-#' @param df
+#' @param actions objet réactif contenant la base de données du serveur
 #'
-#' @returns
-#' @export
-#'
-#' @examples
-info_user <- function(df){
-  df %>%
+#' @returns data.frame avec les users et passwords
+info_user <- function(actions){
+  actions %>%
     filter(user == "admin" & action ==  "password") %>%
     group_by(cible) %>%
     filter(row_number() == n()) %>%
@@ -50,14 +41,15 @@ info_user <- function(df){
     select(user=cible,password=resultat,PA)
 }
 
-#' Fonction pour afficher la durée de manière pertinente
+#' Afficher la durée de manière propre
 #'
-#' @param diff_seconds
+#' @param diff_seconds durée en secondes
 #'
-#' @returns
+#' @returns texte avec la durée
 #' @export
 #'
 #' @examples
+#' display_duration(1234)
 display_duration <- function(diff_seconds) {
   diff_seconds <- as.numeric(diff_seconds)
   hours <- floor(diff_seconds / 3600)  # Calculer le nombre d'heures entières
@@ -75,12 +67,13 @@ display_duration <- function(diff_seconds) {
 
 #' Préparer les timers
 #'
-#' @param timer
+#' @param timer timer à modifier
 #'
-#' @returns
+#' @returns timer en meilleur format
 #' @export
 #'
 #' @examples
+#' prepare_timer(now())
 prepare_timer <- function(timer){
   as.POSIXct(timer, origin = "1970-01-01",tz = "Europe/Paris")
 }

@@ -1,11 +1,8 @@
 #' Obtenir le classement actuel des PJ
 #'
-#' @param actions
+#' @param actions objet réactif contenant la base de données du serveur
 #'
-#' @returns
-#' @export
-#'
-#' @examples
+#' @returns data.frame avec le classement
 bdd_classement  <- function(actions){
 
   classement <- actions %>%
@@ -20,20 +17,15 @@ bdd_classement  <- function(actions){
     arrange(-resultat)
 }
 
-#' Obtenir le classement des PJ
+#' Copie le classement des PJ
 #'
-#' @param actions
-#' @param user_name
-#' @param cible
-#' @param PA
-#' @param variation
-#' @param duree
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ a l'origine de la copie
+#' @param PA nombre de PA dépensé
+#' @param duree (pour admin) détermine manuellement la durée de la recherche
 #'
-#' @returns
-#' @export
-#'
-#' @examples
-copie_classement <- function(actions,user_name,PA,variation=NA,duree=NA){
+#' @returns liste avec les nouvelles lignes et le message à afficher
+copie_classement <- function(actions,user_name,PA,duree=NA){
   timer_now <- Sys.time()
   timer_ok <- Sys.time()+ifelse(is.na(duree),sample(c(2:10),1)*60,duree*60)
 
@@ -57,16 +49,13 @@ copie_classement <- function(actions,user_name,PA,variation=NA,duree=NA){
 
 #' Altérer le classement des entités
 #'
-#' @param actions
-#' @param user_name
-#' @param cible
-#' @param PA
-#' @param duree
+#' @param actions objet réactif contenant la base de données du serveur
+#' @param user_name PJ a l'origine de la copie
+#' @param cible PJ que l'on veut placer en haut du classement
+#' @param PA nombre de PA dépensé
+#' @param duree (pour admin) détermine manuellement la durée de la recherche
 #'
-#' @returns
-#' @export
-#'
-#' @examples
+#' @returns liste avec les nouvelles lignes et le message à afficher
 modification_classement <- function(actions,user_name,cible,PA,duree=NA){
   timer_now <- Sys.time()
 
