@@ -3,12 +3,12 @@ library(shinydashboard)
 library(DT)
 library(tidyverse)
 
-server_name <- getOption("habemus.server_name", default = NULL)
-id_chatgpt <- getOption("habemus.id_chatgpt", default = NULL)
-actions <- getOption("habemus.actions", default = NULL)
-if (is.null(actions) | is.null(server_name)) {
+path_server <- getOption("path_server", default = NULL)
+id_chatgpt <- getOption("id_chatgpt", default = NULL)
+actions <- getOption("actions", default = NULL)
+if (is.null(actions) | is.null(path_server)) {
   stop("Aucun nom de serveur ou server_name défini.
-       Utilisez lancer_serveur_habemus(server_name)
+       Utilisez lancer_serveur_habemus(path_server)
        pour lancer l'application.")
 }
 
@@ -23,7 +23,7 @@ shinyServer(function(input, output,session) {
                            actions=actions,start=TRUE,id_chatgpt=id_chatgpt)
 
   observeEvent(values$actions,{
-    write_csv(values$actions,server_name)
+    write_csv(values$actions,path_server)
   })
 
   # Message d'informations

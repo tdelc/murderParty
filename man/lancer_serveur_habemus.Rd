@@ -4,10 +4,10 @@
 \alias{lancer_serveur_habemus}
 \title{Lancer le serveur Habemus Papam}
 \usage{
-lancer_serveur_habemus(server_name, id_chatgpt = NULL)
+lancer_serveur_habemus(path_server, id_chatgpt = NULL)
 }
 \arguments{
-\item{server_name}{nom du serveur}
+\item{path_server}{lien vers le serveur}
 
 \item{id_chatgpt}{(facultatif) credential de chatGPT}
 }

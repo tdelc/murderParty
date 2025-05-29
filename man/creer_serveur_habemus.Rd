@@ -2,21 +2,9 @@
 % Please edit documentation in R/habemus.R
 \name{creer_serveur_habemus}
 \alias{creer_serveur_habemus}
-\title{Télécharge les fichiers par défaut de Habemus Papam}
+\title{Créer le serveur Habemus Papam}
 \usage{
-creer_serveur_habemus(
-  server_name,
-  df_init_habemus = "data-raw/habemus/init_habemus.csv",
-  df_init_habemus_indices = "data-raw/habemus/init_habemus_indices.csv",
-  df_init_habemus_indices_dispo = "data-raw/habemus/init_habemus_indices_dispo.csv"
-)
-
-creer_serveur_habemus(
-  server_name,
-  df_init_habemus = "data-raw/habemus/init_habemus.csv",
-  df_init_habemus_indices = "data-raw/habemus/init_habemus_indices.csv",
-  df_init_habemus_indices_dispo = "data-raw/habemus/init_habemus_indices_dispo.csv"
-)
+creer_serveur_habemus(server_name, path = "./")
 }
 \arguments{
 \item{server_name}{nom du serveur}
@@ -28,19 +16,12 @@ creer_serveur_habemus(
 \item{df_init_habemus_indices_dispo}{lien vers la base de données initiale (indices dispo)}
 }
 \value{
-Attention, sauvegarde des fichiers dans le répertoire par défaut
-
 data.frame avec toutes les infos de la murder party
 }
 \description{
-`download_fichiers_habemus()` permet de télécharger les fichiers csv avec les données de serveur pour Habemus Papam.
-
 `creer_serveur_habemus()` permet de créer un fichier csv avec les données de serveur pour Habemus Papam.
 }
 \examples{
-
-# Nécessite une connexion internet
-download_fichiers_habemus()
 
 # Exemple avec les fichiers par défaut
 creation_server_habemus('server_habemus_test')
