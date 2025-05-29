@@ -61,7 +61,7 @@ tabItem_enquete <- tabItem(tabName = "enquete",
                                    h3(textOutput("user_name")),
                                    h4(textOutput("user_PA")),
                                    helpText("(Vous regagnerez quatre points de pouvoir par heure)"),
-                                   h4(HTML("<A HREF=\"javascript:history.go(0)\">Quitter l'interface</A>"))
+                                   actionButton("boutton_unlog", "Se déconnecter")
                                ),
                                box(width = 3, title = "Lancer une enquête",
                                    status = "primary", solidHeader = TRUE,
@@ -160,7 +160,7 @@ tabItem_admin <- tabItem(tabName = "admin",
                          conditionalPanel(
                            condition = "output.logged == 'admin'",
                            fluidRow(
-                             column(width = 2,h4(HTML("<A HREF=\"javascript:history.go(0)\">Quitter l'interface</A>"))),
+                             column(width = 2,actionButton("boutton_unlog", "Se déconnecter")),
                              column(width = 7,""),
                              column(width = 3,div(h4(textOutput("info_admin")), style = "color:red"))
                            ),

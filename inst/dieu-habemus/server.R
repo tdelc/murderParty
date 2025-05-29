@@ -26,6 +26,21 @@ shinyServer(function(input, output,session) {
     write_csv(values$actions,path_server)
   })
 
+  observeEvent(input$boutton_unlog,{
+    USER$logged <- FALSE
+    USER$nom_user <- ""
+    updateTabItems(session,"sidebar","connexion")
+    updateTextInput(session,"username",value="")
+    updateTextInput(session,"password",value="")
+  })
+  observeEvent(input$boutton_unlog_admin,{
+    USER$logged <- FALSE
+    USER$nom_user <- ""
+    updateTabItems(session,"sidebar","connexion")
+    updateTextInput(session,"username",value="")
+    updateTextInput(session,"password",value="")
+  })
+
   # Message d'informations
 
   info <- reactiveVal("")
@@ -676,10 +691,6 @@ shinyServer(function(input, output,session) {
 
     PA <- info_user(values$actions) %>%
       filter(user == input$choix_user_password) %>% pull(PA)
-
-    new_row <-  prepare_row_drive(values$id_session,"admin","password",
-                                  input$choix_user_password,PA,Sys.time(),
-                                  input$password_admin,Sys.time())
 
     new_rows <- tibble(
       user="admin",action="password",cible=input$choix_user_password,PA=PA,

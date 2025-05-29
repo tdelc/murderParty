@@ -29,5 +29,8 @@ Imports:
 URL: https://github.com/tdelc/murderParty
 BugReports: https://github.com/tdelc/murderParty/issues
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr

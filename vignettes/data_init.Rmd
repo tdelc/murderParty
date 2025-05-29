@@ -1,0 +1,110 @@
+---
+title: "Données initiales d'une murder party"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Données initiales d'une murder party}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(murderParty)
+library(tibble)
+library(tidyverse)
+library(readr)
+```
+
+# Introduction
+
+Cette vignette vous présente la structure d’un fichier csv utilisé pour initialiser une partie de murder party avec le package murderParty, en particulier pour le scénario Habemus Papam (Dieu est mort est identique, quoi que plus simple). Nous allons commencer par générer un fichier de serveur :
+
+```{r}
+creer_serveur_habemus("habemus_vignette")
+habemus_data <- read_csv("habemus_vignette.csv")
+head(habemus_data)
+```
+
+Nous allons examiner ce fichier exemple (habemus_vignette.csv) ligne par ligne, et expliquer comment le modifier pour personnaliser votre propre scénario. Le fichier contient les colonnes suivantes :
+
+| Colonne | Description |
+|----|----|
+| `user` | L’acteur ou système à l’origine de l’action (souvent `admin` pour le fichier initial) |
+| `action` | Type d’action ou d’événement enregistré |
+| `cible` | Objet **ou** joueur visé par l’action |
+| `PA` | Points d’action nécessaires ou impactés |
+| `timer` | Heure de lancement de l’action (souvent vide à l'init) |
+| `resultat` | Résultat spécifique de l’action (texte, booléen, etc.) |
+| `timer_ok` | Heure de fin ou disponibilité de l’action |
+| `texte` | Champ libre pour texte additionnel ou indice |
+
+: Liste des colonnes
+
+# Explication des données
+
+## Aléa du dé
+
+```{r}
+habemus_data %>% filter(action == "alea")
+```
+Cela permet de configuration les résultats du dé. 1 est pour une enquête ratée, 2 pour une enquête réussie et 3 pour une enquête parfaite. Ici, la colonne PA indique la probabilité de chaque résultat. On a donc ici un dé à 6 faces, avec 1 chance d'avoir une enquête ratée, 4 chances d'avoir une enquête réussie et 1 chance sur 6 d'avoir une enquête parfaite.
+
+## Configuration d'actions spéciales admin
+
+```{r}
+habemus_data %>% filter(action == "enq_spe")
+habemus_data %>% filter(action == "chat_gpt")
+```
+
+L'action enq_spe indique si les joueur·euses peuvent obtenir les enquêtes spéciales (celles contenant le plus d'informations). La fonction est désactivée au départ.
+
+L'action chat_gpt indique si chat GPT est utilisé pour reformuler légèrement les indices. La fonction est désactivée par défaut.
+
+## Classement et pouvoir (uniquement Habemus Papam)
+```{r}
+habemus_data %>% filter(action == "classement")
+```
+
+Dans Habemus Papam, les PJ ont un classement pour devenir potentiellement Lucifer. Ici sont les scores de départ, qui pourront être modifié durant le jeu.
+
+```{r}
+habemus_data %>% filter(action == "pouvoir")
+```
+
+Certains personnages disposent de pouvoir de copie ou de modification du classement. Ils sont indiqués avec ces lignes.
+
+## Password
+```{r}
+habemus_data %>% filter(action == "password")
+```
+
+Ici sont stocké les mots de passe pour chaque PJ. Vous pouvez modifier cela avant le début du jeu.
+
+## Texte des indices
+```{r}
+habemus_data %>% filter(action == "init" & cible == "I") %>% 
+  mutate(texte = "(SPOIL)")
+```
+
+La base de données contient tous les textes pour chaque indice. Vous avez un exemple ci-dessus avec l'enquête I (en effaçant le texte des indices, pour éviter le spoil). Vous pouvez modifier les indices pour votre propre usage. Le résultat 1 est pour l'enquête ratée, 2 pour l'enquête réussie et 3 pour l'enquête parfaite.
+
+## Indices de départ
+```{r}
+habemus_data %>% filter(action == "init" & user == "Jesus")
+```
+
+Les personnages disposent d'indices de départ pour débuter leurs recherche. Vous avez l'exemple ici des enquêtes accessibles pour Jésus. Le point important est la "cible", devant faire référence au texte des indices.
+
+# Personnalisation
+
+Vous pouvez modifier le csv avant le début de la session de jeu, ainsi vous adaptez le jeu à vos besoins.
+
+# Evolution du fichier
+
+A chaque action des PJs ou de l'orga durant la session, le csv sera mis à jour avec des lignes supplémentaires. Ainsi, s'il y a un bug coupant le serveur, vous avez juste à le relancer pour tout garder à jour. En supprimant les lignes ajoutées durant le jeu, vous réinitialiser la session de jeu.
