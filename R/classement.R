@@ -3,6 +3,7 @@
 #' @param actions objet réactif contenant la base de données du serveur
 #'
 #' @returns data.frame avec le classement
+#' @export
 bdd_classement  <- function(actions){
 
   classement <- actions %>%
@@ -25,6 +26,7 @@ bdd_classement  <- function(actions){
 #' @param duree (pour admin) détermine manuellement la durée de la recherche
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 copie_classement <- function(actions,user_name,PA,duree=NA){
   timer_now <- Sys.time()
   timer_ok <- Sys.time()+ifelse(is.na(duree),sample(c(2:10),1)*60,duree*60)
@@ -56,6 +58,7 @@ copie_classement <- function(actions,user_name,PA,duree=NA){
 #' @param duree (pour admin) détermine manuellement la durée de la recherche
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 modification_classement <- function(actions,user_name,cible,PA,duree=NA){
   timer_now <- Sys.time()
 

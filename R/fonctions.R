@@ -4,6 +4,7 @@
 #' @param message texte du message
 #'
 #' @returns modalBox
+#' @export
 show_message <- function(title, message) {
   showModal(modalDialog(
     h3(title),
@@ -17,6 +18,7 @@ show_message <- function(title, message) {
 #' @param actions objet réactif contenant la base de données du serveur
 #'
 #' @returns data.frame avec les indices disponibles
+#' @export
 info_indices <- function(actions){
   actions %>%
     filter(user == "admin" & action ==  "init") %>%
@@ -32,6 +34,7 @@ info_indices <- function(actions){
 #' @param actions objet réactif contenant la base de données du serveur
 #'
 #' @returns data.frame avec les users et passwords
+#' @export
 info_user <- function(actions){
   actions %>%
     filter(user == "admin" & action ==  "password") %>%

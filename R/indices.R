@@ -12,6 +12,7 @@
 #' @param id_chatgpt (facultatif) credential de chatGPT
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 recherche_indice <- function(actions,user_name,
                              enquete,PA,resultat=NA,duree=NA,
                              id_chatgpt=NULL){
@@ -124,6 +125,7 @@ recherche_indice <- function(actions,user_name,
 #' @param PA nombre de PA dépensé
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 copie_indice <- function(actions,user_name,cible_name,PA){
 
   timer_now <- Sys.time()
@@ -166,6 +168,7 @@ copie_indice <- function(actions,user_name,cible_name,PA){
 #' @param PA nombre de PA dépensé
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 interception_indice <- function(actions,user_name,cible_name,PA){
   timer_now <- Sys.time()
 
@@ -190,7 +193,6 @@ interception_indice <- function(actions,user_name,cible_name,PA){
 
 
 #' Lister les indices actuels d'un PJ
-#'
 #' @description
 #' `liste_indices()` liste les indices actuels d'un PJ
 #'
@@ -198,6 +200,7 @@ interception_indice <- function(actions,user_name,cible_name,PA){
 #' @param user_name PJ dont on veut la liste des indices actuels
 #'
 #' @returns liste avec les indices
+#' @export
 liste_indices <- function(actions,user_name){
 
   # Liste des indices

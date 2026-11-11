@@ -4,9 +4,9 @@
 \name{murderParty-package}
 \alias{murderParty}
 \alias{murderParty-package}
-\title{murderParty: What the Package Does (Title Case)}
+\title{murderParty: Interface interactive pour une Murder Party}
 \description{
-More about what it does (maybe more than one line). Continuation lines should be indented.
+Le package murderParty propose une suite de fonctions et d’interfaces permettant de gérer informatiquement une murder party scénarisée, ici dans le cadre du scénario "Habemu Papam" ou "Dieu est mort".
 }
 \seealso{
 Useful links:
@@ -17,7 +17,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jane Doe \email{jane@example.com}
+\strong{Maintainer}: Thomas Delclite \email{t.delclite@gmail.com}
+
+Authors:
+\itemize{
+  \item Thomas Delclite \email{t.delclite@gmail.com}
+}
 
 }
 \keyword{internal}

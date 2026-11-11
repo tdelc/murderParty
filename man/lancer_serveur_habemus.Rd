@@ -2,9 +2,12 @@
 % Please edit documentation in R/shiny.R
 \name{lancer_serveur_habemus}
 \alias{lancer_serveur_habemus}
-\title{Lancer le serveur Habemus Papam}
+\alias{lancer_serveur_dieu}
+\title{Lancer le serveur Habemus Papam (ou Dieu est mort)}
 \usage{
 lancer_serveur_habemus(path_server, id_chatgpt = NULL)
+
+lancer_serveur_dieu(...)
 }
 \arguments{
 \item{path_server}{lien vers le serveur}
@@ -19,6 +22,6 @@ exécute l'interface shiny
 }
 \examples{
 # Exemple avec les fichiers par défaut
-creation_server_habemus('server_habemus_test')
-creer_serveur_habemus("server_habemus_test")
+creer_serveur_habemus('server_habemus_test')
+lancer_serveur_habemus("server_habemus_test")
 }

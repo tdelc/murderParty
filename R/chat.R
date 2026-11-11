@@ -11,6 +11,7 @@
 #' @param délai détermine le temps pour envoyer le message
 #'
 #' @returns liste avec les nouvelles lignes et le message à afficher
+#' @export
 envoi_message <- function(actions,origine,destinataire,message,PA,delai){
 
   timer_now <- Sys.time()
